@@ -36,8 +36,8 @@ char* reverse(char *S, int len)
 //Another method
 //STACK always uses LIFO property
 
-#include<bits/stdc++.h>
-using namespace std;
+//T.C = O(N)
+//S.C = O(N) //because stack is used
 
 int main(){
 
