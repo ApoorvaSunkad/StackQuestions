@@ -34,6 +34,32 @@ Array may contain duplicate elements.
 
 */
 
+//Extreme brute force: Easy peasy
+//very interesting problem
+
+//T.C = O(N)
+//S.C = O(1)
+void Reverse(stack<int> &St){
+    while (!St.empty()) {
+        cout << St.top() << " ";
+        St.pop();
+    }
+}
+
+//Using an extra stack
+//T.C = O(N)
+//S.C = O(N)
+
+void Reverse(stack<int> &St){
+    stack<int> temp;
+    while(!St.empty()){
+        int curr = St.top();
+        St.pop();
+        temp.push(curr);
+    }
+    St = temp;
+}
+
 //using Recursion
 
 //T.C = O(N^2)
