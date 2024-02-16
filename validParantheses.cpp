@@ -67,3 +67,6 @@ bool isValid(string s) {
 
     return false;
 }
+
+//This question is on GFG/Coding ninjas as well with name paranthesis checker/
+//Valid Parentheses repectively.
