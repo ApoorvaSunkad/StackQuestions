@@ -44,46 +44,60 @@ Constraints:
 
 //Please refer Algorithm for better understanding.
 
-//T.C = O(N)
-//S.C = O(N) N = Length of the input string
+//T.C = O(N)+O(N)
+//S.C = O(N)+O(N) N = Length of the input string
 
-int precd(char c){
-    if(c == '^')return 3;
-    if(c == '/' or c == '*')return 2;
-    if(c == '-' or c == '+')return 1;
+#include<iostream>
+#include<vector>
+#include<stack>
+using namespace std;
+
+int precedence(char c) {
+    if (c == '^')
+        return 3;
+    else if (c == '/' || c == '*')
+        return 2;
+    else if (c == '+' || c == '-')
+        return 1;
+    else
+        return -1;
 }
 
 // Function to convert an infix expression to a postfix expression.
 string infixToPostfix(string s) {
 
-    // Your code here
-    int n = s.length();
     string ans = "";
-    stack<char> st;
-
-    for(int i = 0;i < n;i++){
-        if((s[i] >= 'a' and s[i] <= 'z') and s[i] >= 'A' and s[i] <= 'Z'){
-            ans += s[i];
-        }
-        else{
-            while(!st.empty() and s[i] != '(' and s[i] != ')' and precd(st.top()) >= precd(s[i])){
-                if(st.top() != '(')ans += st.top();
-                else break;
-                st.pop();
-            }
-            if(s[i] == ')'){
-                while(st.top() != '('){
-                    ans += st.top();
+        stack<char> st;
+        
+        int i = 0, n = s.length();
+        
+        while(i<n){
+            char ch = s[i];
+            if((ch >='A' && ch <='Z') || (ch >='a' && ch <='z') || (ch >='0' && ch <='9')){
+                ans+=ch;
+            }else if(ch == '('){
+                st.push(ch);
+            }else if(ch == ')'){
+                while(!st.empty() && st.top() != '('){
+                    ans+=st.top();
                     st.pop();
                 }
                 st.pop();
+            }else{
+                while(!st.empty() && precedence(ch)<= precedence(st.top())){
+                    ans+=st.top();
+                    st.pop();
+                    
+                }
+                st.push(ch);
             }
-            else st.push(s[i]);
+            i++;
         }
-    }
-    while(!st.empty()){
-        ans += st.top();
-        st.pop();
-    }
-    return ans;
+        
+        while(!st.empty()){
+            ans+=st.top();
+            st.pop();
+        }
+        return ans;
+  
 }
